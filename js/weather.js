@@ -1,53 +1,42 @@
-document.getElementById('search-btn').addEventListener('click', fetchWeather);
+document.addEventListener("DOMContentLoaded", () => {
+  const searchBtn = document.getElementById("search-btn");
+  const cityInput = document.getElementById("city-input");
+  const weatherData = document.getElementById("weather-data");
+  const weatherIcon = document.getElementById("weather-icon");
 
-async function fetchWeather() {
-  const city = document.getElementById('city-input').value.trim();
-  if (!city) return;
-
-  try {
-    const response = await fetch(`https://clima-api-17w0.onrender.com/clima?ciudad=${encodeURIComponent(city)}`);
-    const data = await response.json();
-
-    if (data.error) {
-      document.getElementById('weather-data').innerHTML = `<p>${data.error}</p>`;
-    } else {
-      updateWeatherUI(data);
+  searchBtn.addEventListener("click", async () => {
+    const city = cityInput.value.trim();
+    
+    if (!city) {
+      weatherData.innerHTML = "<p>Por favor, ingresa una ciudad.</p>";
+      return;
     }
-  } catch (error) {
-    document.getElementById('weather-data').innerHTML = '<p>Error al conectar con el servicio</p>';
-  }
-}
 
-function updateWeatherUI(data) {
-  const icon = document.getElementById('weather-icon');
-  const weatherDiv = document.getElementById('weather-data');
+    try {
+      weatherData.innerHTML = "<p>Cargando...</p>";
+      
+      // Llama a TU API (reemplaza la URL con la de tu clima-api)
+      const response = await fetch(`https://tu-api-clima.onrender.com/clima?ciudad=${city}`);
+      
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status}`);
+      }
 
-  // Selecciona icono según el clima
-  const weather = data.clima.toLowerCase();
-  if (weather.includes('sol')) icon.textContent = '☀️';
-  else if (weather.includes('lluvia')) icon.textContent = '🌧️';
-  else if (weather.includes('nube')) icon.textContent = '☁️';
-  else icon.textContent = '🌤️';
-
-  weatherDiv.innerHTML = `
-    <p><strong>${data.ciudad}</strong></p>
-    <p>🌡️ ${data.temperatura}°C</p>
-    <p>💧 ${data.humedad}% humedad</p>
-    <p>🌬️ ${data.viento || 'N/A'} km/h</p>
-  `;
-}
-if (navigator.geolocation) {
-  navigator.geolocation.getCurrentPosition(position => {
-    fetch(`https://tu-api.com/clima?lat=${position.coords.latitude}&lon=${position.coords.longitude}`)
-      .then(...)
+      const data = await response.json();
+      
+      // Muestra los datos (ajusta según la estructura de tu API)
+      weatherData.innerHTML = `
+        <p><strong>${data.ciudad}</strong></p>
+        <p>Temperatura: ${data.temp}°C</p>
+        <p>Humedad: ${data.humedad}%</p>
+      `;
+      
+      // Cambia el ícono según el clima (opcional)
+      weatherIcon.textContent = data.temp > 25 ? "☀️" : "🌤️";
+      
+    } catch (error) {
+      console.error("Error al buscar el clima:", error);
+      weatherData.innerHTML = `<p>Error: ${error.message}</p>`;
+    }
   });
-}
-document.getElementById('city-input').addEventListener('input', debounce(fetchWeather, 500));
-
-function debounce(func, delay) {
-  let timeout;
-  return function() {
-    clearTimeout(timeout);
-    timeout = setTimeout(() => func.apply(this, arguments), delay);
-  };
-}
+});
