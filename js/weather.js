@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
       weatherData.innerHTML = "<p>Cargando...</p>";
       
       // Llama a TU API (reemplaza la URL con la de tu clima-api)
-      const response = await fetch(`https://tu-api-clima.onrender.com/clima?ciudad=${city}`);
+      const response = await fetch(`https://clima-api-17w0.onrender.com/=${city}`);
       
       if (!response.ok) {
         throw new Error(`Error: ${response.status}`);
