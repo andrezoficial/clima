@@ -36,3 +36,9 @@ function updateWeatherUI(data) {
     <p>🌬️ ${data.viento || 'N/A'} km/h</p>
   `;
 }
+if (navigator.geolocation) {
+  navigator.geolocation.getCurrentPosition(position => {
+    fetch(`https://tu-api.com/clima?lat=${position.coords.latitude}&lon=${position.coords.longitude}`)
+      .then(...)
+  });
+}
