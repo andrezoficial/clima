@@ -1,1 +1,42 @@
+.weather-widget {
+  width: 250px;
+  background: linear-gradient(135deg, #6e8efb, #a777e3);
+  border-radius: 12px;
+  padding: 20px;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', sans-serif;
+}
 
+.weather-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.weather-icon {
+  font-size: 2rem;
+}
+
+.weather-search input {
+  width: 70%;
+  padding: 8px;
+  border: none;
+  border-radius: 4px 0 0 4px;
+}
+
+.weather-search button {
+  width: 30%;
+  padding: 8px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+}
+
+.weather-data {
+  margin-top: 15px;
+  line-height: 1.6;
+}
