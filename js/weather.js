@@ -42,3 +42,12 @@ if (navigator.geolocation) {
       .then(...)
   });
 }
+document.getElementById('city-input').addEventListener('input', debounce(fetchWeather, 500));
+
+function debounce(func, delay) {
+  let timeout;
+  return function() {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, arguments), delay);
+  };
+}
