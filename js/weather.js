@@ -1,3 +1,4 @@
+console.log("Ancho de pantalla:", window.innerWidth);
 document.addEventListener("DOMContentLoaded", () => {
   const searchBtn = document.getElementById("search-btn");
   const cityInput = document.getElementById("city-input");
