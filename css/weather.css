@@ -1,42 +1,135 @@
+/* Estilos base mejorados */
 .weather-widget {
-  width: 250px;
+  width: 100%;
+  max-width: 280px;
   background: linear-gradient(135deg, #6e8efb, #a777e3);
   border-radius: 12px;
   padding: 20px;
   color: white;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   font-family: 'Segoe UI', sans-serif;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
+/* Header responsive */
 .weather-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.weather-header h3 {
+  margin: 0;
+  font-size: clamp(1.1rem, 3vw, 1.3rem);
 }
 
 .weather-icon {
-  font-size: 2rem;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+}
+
+/* Formulario de búsqueda responsive */
+.weather-search {
+  display: flex;
+  width: 100%;
 }
 
 .weather-search input {
-  width: 70%;
-  padding: 8px;
+  flex: 1;
+  min-width: 0;
+  padding: clamp(7px, 2vw, 8px);
   border: none;
   border-radius: 4px 0 0 4px;
+  font-size: clamp(0.9rem, 3vw, 1rem);
 }
 
 .weather-search button {
-  width: 30%;
-  padding: 8px;
+  width: auto;
+  padding: clamp(7px, 2vw, 8px) clamp(10px, 3vw, 15px);
   background: #4CAF50;
   color: white;
   border: none;
   border-radius: 0 4px 4px 0;
   cursor: pointer;
+  font-size: clamp(0.8rem, 3vw, 0.9rem);
+  white-space: nowrap;
 }
 
+/* Datos del clima responsive */
 .weather-data {
   margin-top: 15px;
   line-height: 1.6;
+  font-size: clamp(0.9rem, 3vw, 1rem);
+}
+
+.weather-data p {
+  margin: 8px 0;
+  display: flex;
+  align-items: center;
+}
+
+/* Estilos para diferentes tamaños de pantalla */
+@media (max-width: 768px) {
+  .weather-widget {
+    padding: 15px;
+    max-width: 100%;
+    border-radius: 0;
+  }
+  
+  .weather-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .weather-search {
+    flex-direction: column;
+  }
+  
+  .weather-search input,
+  .weather-search button {
+    width: 100%;
+    border-radius: 4px;
+  }
+  
+  .weather-search input {
+    margin-bottom: 5px;
+  }
+  
+  .weather-search button {
+    padding: 8px;
+  }
+}
+
+/* Mejoras de legibilidad */
+.weather-data strong {
+  min-width: 80px;
+  display: inline-block;
+}
+
+/* Efectos hover para interactividad */
+.weather-search button:hover {
+  background: #45a049;
+  transform: scale(1.02);
+  transition: all 0.2s ease;
+}
+
+/* Clases para estados especiales */
+.loading {
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+.error {
+  color: #ffdddd;
+  font-weight: bold;
 }
