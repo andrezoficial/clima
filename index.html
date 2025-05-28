@@ -1,26 +1,17 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clima App</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/weather.css') }}">
-</head>
-<body>
-    <div class="weather-widget">
-        <div class="weather-header">
-            <h3>Clima Actual</h3>
-            <div class="weather-icon" id="weather-icon">🌤️</div>
-        </div>
-        <div class="weather-search">
-            <input type="text" id="city-input" placeholder="Ej: Madrid">
-            <button id="search-btn">Buscar</button>
-        </div>
-        <div class="weather-data" id="weather-data">
-            <p>Ingresa una ciudad</p>
-        </div>
-    </div>
+<div class="weather-widget">
+  <div class="weather-header">
+    <h3>Clima Actual</h3>
+    <div class="weather-icon" id="weather-icon">🌤️</div>
+  </div>
+  <div class="weather-search">
+    <input type="text" id="city-input" placeholder="Ej: Madrid">
+    <button id="search-btn">Buscar</button>
+  </div>
+  <div class="weather-data" id="weather-data">
+    <p>Ingresa una ciudad</p>
+  </div>
+</div>
 
-    <script src="{{ url_for('static', filename='js/weather.js') }}"></script>
-</body>
-</html>
+<!-- Enlaza los archivos CSS/JS -->
+<link rel="stylesheet" href="css/weather.css">
+<script src="js/weather.js"></script>
