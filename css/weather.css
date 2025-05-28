@@ -1,111 +1,134 @@
-.weather-widget {
-    width: 100%;
-    max-width: 280px;
-    background: linear-gradient(135deg, #6e8efb, #a777e3);
-    border-radius: 12px;
-    padding: clamp(15px, 4vw, 20px);
-    color: white;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    font-family: 'Segoe UI', sans-serif;
-    margin: 0 auto;
-    box-sizing: border-box;
+/* Reset para móviles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-/* Header */
+/* Contenedor principal - Ajuste móvil */
+.weather-widget {
+  width: 100%;
+  max-width: 100%;
+  background: linear-gradient(135deg, #6e8efb, #a777e3);
+  border-radius: 0;
+  padding: 15px;
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  margin: 0;
+  min-height: 100vh;
+}
+
+/* Header móvil */
 .weather-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  text-align: center;
+  gap: 10px;
 }
 
 .weather-header h3 {
-    margin: 0;
-    font-size: clamp(1.1rem, 3vw, 1.3rem);
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
 .weather-icon {
-    font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-size: 3rem;
 }
 
-/* Búsqueda */
+/* Búsqueda móvil */
 .weather-search {
-    display: flex;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
 .weather-search input {
-    flex: 1;
-    padding: clamp(7px, 2vw, 8px);
-    border: none;
-    border-radius: 4px 0 0 4px;
-    font-size: clamp(0.9rem, 3vw, 1rem);
+  width: 100%;
+  padding: 12px 15px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
 }
 
 .weather-search button {
-    padding: clamp(7px, 2vw, 8px) clamp(10px, 3vw, 15px);
-    background: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 0 4px 4px 0;
-    cursor: pointer;
-    font-size: clamp(0.8rem, 3vw, 0.9rem);
-    transition: all 0.2s;
+  width: 100%;
+  padding: 12px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
 }
 
-.weather-search button:hover {
-    background: #45a049;
-    transform: scale(1.02);
-}
-
-/* Datos del clima */
+/* Datos del clima - Móvil */
 .weather-data {
-    margin-top: 15px;
-    line-height: 1.6;
-    font-size: clamp(0.9rem, 3vw, 1rem);
+  margin-top: 20px;
+  line-height: 1.8;
 }
 
 .weather-data p {
-    margin: 8px 0;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  margin: 12px 0;
+  display: flex;
+  align-items: center;
+  font-size: 1.1rem;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
 }
 
-/* Íconos específicos */
-.temp::before { content: "🌡️"; }
-.humedad::before { content: "💧"; }
-.clima::before { content: "🌎"; }
+/* Íconos aumentados */
+.temp::before { 
+  content: "🌡️";
+  font-size: 1.3em;
+  margin-right: 10px;
+}
+.humedad::before { 
+  content: "💧";
+  font-size: 1.3em;
+  margin-right: 10px;
+}
+.clima::before { 
+  content: "🌎";
+  font-size: 1.3em;
+  margin-right: 10px;
+}
 
-/* Estados */
+/* Estados móviles */
 .loading {
-    animation: pulse 1.5s infinite;
-    color: rgba(255,255,255,0.8);
+  text-align: center;
+  font-size: 1.2rem;
+  padding: 20px 0;
 }
 
 .error {
-    color: #ffdddd;
-    font-weight: bold;
+  color: #ffdddd;
+  font-weight: 500;
+  font-size: 1.1rem;
+  padding: 15px;
+  background: rgba(255,0,0,0.2);
+  border-radius: 8px;
+  text-align: center;
 }
 
-@keyframes pulse {
-    0% { opacity: 0.6; }
-    50% { opacity: 1; }
-    100% { opacity: 0.6; }
+/* Teclado virtual en móviles */
+@media (max-height: 600px) {
+  .weather-widget {
+    min-height: auto;
+    padding-bottom: 30px;
+  }
 }
 
-/* Responsive extremo */
-@media (max-width: 480px) {
-    .weather-search {
-        flex-direction: column;
-    }
-    .weather-search input,
-    .weather-search button {
-        width: 100%;
-        border-radius: 4px;
-    }
-    .weather-search input {
-        margin-bottom: 5px;
-    }
+/* Orientación horizontal */
+@media (orientation: landscape) {
+  .weather-header {
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+  }
 }
