@@ -132,3 +132,32 @@
     gap: 20px;
   }
 }
+footer {
+  background-color: rgba(0, 0, 0, 0.85);
+  color: #0ff;
+  text-shadow: 0 0 8px #0ff;
+  padding: 1.5rem 1rem;
+  font-family: 'Segoe UI', sans-serif;
+  box-shadow: 0 -4px 10px rgba(0, 255, 255, 0.3);
+  position: relative;
+  z-index: 10;
+}
+
+footer p {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+footer a img {
+  filter: invert(1); /* Íconos en blanco para que contrasten */
+  transition: filter 0.3s ease;
+}
+
+footer a:hover img {
+  filter: invert(0.3) drop-shadow(0 0 3px #0ff);
+}
+
+footer .flex {
+  justify-content: center;
+  gap: 1.5rem;
+}
