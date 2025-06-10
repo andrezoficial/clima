@@ -40,26 +40,16 @@ Está pensado para ser fácil de usar y visualmente atractivo con animaciones y 
 ---
 ##📁 Estructura del proyecto
 ---
-bash
+![image](https://github.com/user-attachments/assets/d20daeb4-6f1c-42e1-8715-af068ca9b178)
+
 ---
-Copiar
 ---
-Editar
----
-clima/
-│
-├── index.html         # Archivo principal HTML
-├── js/
-│   └── weather.js     # Lógica JavaScript
-├── README.md          # Este archivo
-└── ...
----
-##🔧 Personalización
+## Personalización 🔧
 Las imágenes de fondo se pueden cambiar en weather.js, dentro del objeto fondosClima.
 
 Puedes mejorar el diseño en index.html y estilos CSS.
 
-##👨‍💻 Autor
+## Autor 👨‍💻
 Andrés Suárez Moreno
 
 GitHub: https://github.com/andrezoficial
@@ -67,4 +57,19 @@ GitHub: https://github.com/andrezoficial
 LinkedIn: https://www.linkedin.com/in/andres1997rez
 
 WhatsApp: https://wa.me/573226183938
+
+---
+## Licencia 📄
+Este proyecto está bajo la licencia MIT — mira el archivo LICENSE para más detalles.
+
+---
+
+## Notas 📝
+
+La API de clima usada es una API propia desplegada en https://clima-api-17w0.onrender.com
+
+Para que la detección automática de ubicación funcione, el navegador debe permitir el acceso a la geolocalización.
+
+El cambio dinámico del fondo depende de la descripción del clima que devuelve la API.
+
 
