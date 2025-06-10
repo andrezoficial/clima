@@ -203,3 +203,16 @@ footer .flex {
     text-align: center;
   }
 }
+.weather-search {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+footer .flex {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
