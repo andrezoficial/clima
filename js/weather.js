@@ -1,13 +1,22 @@
 console.log("Ancho de pantalla:", window.innerWidth);
+
 document.addEventListener("DOMContentLoaded", () => {
   const searchBtn = document.getElementById("search-btn");
   const cityInput = document.getElementById("city-input");
   const weatherData = document.getElementById("weather-data");
   const weatherIcon = document.getElementById("weather-icon");
 
+  // 🔎 Permite usar Enter para buscar
+  cityInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      searchBtn.click();
+    }
+  });
+
+  // 🔄 Evento click para buscar clima
   searchBtn.addEventListener("click", async () => {
     const city = cityInput.value.trim();
-    
+
     if (!city) {
       weatherData.innerHTML = "<p class='error'>🔍 Por favor, ingresa una ciudad</p>";
       return;
@@ -15,16 +24,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       weatherData.innerHTML = "<p class='loading'>⏳ Buscando datos climáticos...</p>";
-      
-      // Llama a TU API Flask
-      const response = await fetch(`https://clima-api-17w0.onrender.com/clima?ciudad=${encodeURIComponent(city)}`);
-      
-      if (!response.ok) throw new Error(`Error ${response.status}: Ciudad no encontrada`);
-      
-      const data = await response.json();
-      console.log("Datos de la API:", data); // Para depuración
 
-      // Renderiza TODOS los campos disponibles
+      const response = await fetch(`https://clima-api-17w0.onrender.com/clima?ciudad=${encodeURIComponent(city)}`);
+      if (!response.ok) throw new Error(`Error ${response.status}: Ciudad no encontrada`);
+
+      const data = await response.json();
+      console.log("Datos de la API:", data);
+
+      // 🧊 Actualiza contenido
       weatherData.innerHTML = `
         <div class="weather-card">
           <h2>${data.ciudad || "Ciudad no disponible"}</h2>
@@ -38,7 +45,12 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
       `;
 
-      // Cambia el ícono según el clima (personalizable)
+      // ✨ Aplica animación
+      weatherData.classList.remove("card-pop");
+      void weatherData.offsetWidth; // Fuerza reflow
+      weatherData.classList.add("card-pop");
+
+      // ☀️ Ícono dinámico
       weatherIcon.textContent = getWeatherIcon(data.clima);
 
     } catch (error) {
@@ -50,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Función para íconos dinámicos (basada en la descripción del clima)
+  // 🔁 Función para íconos
   function getWeatherIcon(climaDescripcion) {
     if (!climaDescripcion) return "🌈";
     const desc = climaDescripcion.toLowerCase();
@@ -60,34 +72,4 @@ document.addEventListener("DOMContentLoaded", () => {
     if (desc.includes("nieve") || desc.includes("snow")) return "❄️";
     return "🌤️";
   }
-});
-document.addEventListener("DOMContentLoaded", () => {
-  const input = document.getElementById("city-input");
-  const button = document.getElementById("search-btn");
-
-  input.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") {
-      button.click();
-    }
-  });
-
-  button.addEventListener("click", () => {
-    const city = input.value.trim();
-    if (!city) return;
-
-    fetch(`https://clima-api-17w0.onrender.com/clima?ciudad=${encodeURIComponent(city)}`)
-      .then((res) => res.json())
-      .then((data) => {
-        const { ciudad, temperatura, humedad, clima } = data;
-        document.getElementById("weather-data").innerHTML = `
-          <h4>${ciudad}</h4>
-          <p>🌡️ Temperatura: ${temperatura}°C</p>
-          <p>💧 Humedad: ${humedad}%</p>
-          <p>☁️ Cielo: ${clima}</p>
-        `;
-      })
-      .catch(() => {
-        document.getElementById("weather-data").innerHTML = `<p>Error al obtener datos</p>`;
-      });
-  });
 });
