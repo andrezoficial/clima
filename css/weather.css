@@ -178,3 +178,28 @@ footer .flex {
 .weather-search input::placeholder {
   color: #cbd5e1;
 }
+.weather-widget {
+  width: 90%;
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+  border-radius: 1rem;
+}
+
+@media (max-width: 600px) {
+  .weather-search {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .weather-search input,
+  .weather-search button {
+    width: 100%;
+    margin: 0.3rem 0;
+  }
+
+  .weather-header {
+    flex-direction: column;
+    text-align: center;
+  }
+}
