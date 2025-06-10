@@ -164,3 +164,17 @@ footer .flex {
 .shadow-cyan-glow {
   box-shadow: 0 0 10px 2px #0ff;
 }
+.weather-search input {
+  padding: 0.5rem;
+  width: 70%;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  background-color: #1e293b;
+  color: #fff;
+  outline: none;
+}
+
+.weather-search input::placeholder {
+  color: #cbd5e1;
+}
