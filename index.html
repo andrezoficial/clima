@@ -7,151 +7,39 @@
   <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/1163/1163661.png" type="image/png">
   <style>
     body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: url('https://images.unsplash.com/photo-1501973801540-537f08ccae7b?auto=format&fit=crop&w=1400&q=80') no-repeat center center fixed;
-      background-size: cover;
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-
-    .weather-widget {
-      background-color: rgba(0, 0, 0, 0.75);
-      padding: 2rem;
-      border-radius: 1rem;
-      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-      max-width: 500px;
-      margin: 3rem auto;
-    }
-
-    .weather-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .weather-icon {
-      font-size: 2rem;
-    }
-
-    .weather-search {
-      margin: 1rem 0;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
-    .weather-search input {
-      padding: 0.5rem;
-      flex: 1 1 60%;
-      min-width: 0;
-      border: none;
-      border-radius: 5px;
-    }
-
-    .weather-search button {
-      padding: 0.5rem 1rem;
-      background-color: #06b6d4;
-      border: none;
-      border-radius: 5px;
-      color: black;
-      font-weight: bold;
-      cursor: pointer;
-      flex: 1 1 35%;
-    }
-
-    .weather-search button:hover {
-      background-color: #22d3ee;
-    }
-
-    .shadow-cyan-glow {
-      box-shadow: 0 0 10px 2px #0ff;
-    }
-
-    footer {
-      background-color: rgba(0, 0, 0, 0.8);
-      color: #67e8f9;
-      text-align: center;
-      padding: 1.5rem 0;
-      margin-top: auto;
-    }
-
-    footer img {
-      height: 24px;
-      width: 24px;
-      margin: 0 0.75rem;
-      filter: invert(1);
-    }
-
-    .footer-icons {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-top: 0.5rem;
-    }
-
-    @media (max-width: 600px) {
-      .weather-widget {
-        margin: 1rem;
-        padding: 1rem;
-        max-width: 90%;
-      }
-
-      .weather-header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .weather-icon {
-        margin-top: 1rem;
-        font-size: 1.5rem;
-      }
-
-      .weather-search {
-        flex-direction: column;
-      }
-
-      .weather-search button {
-        width: 100%;
-      }
-
-      .weather-search input {
-        width: 100%;
-      }
-    }
-    @keyframes bounceFade {
-  0% {
-    opacity: 0;
-    transform: scale(0.5) translateY(-20px);
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: url('https://images.unsplash.com/photo-1501973801540-537f08ccae7b?auto=format&fit=crop&w=1400&q=80') no-repeat center center fixed;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background-image 1s ease-in-out;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
   }
-  50% {
-    opacity: 1;
-    transform: scale(1.2) translateY(5px);
-  }
-  100% {
-    transform: scale(1) translateY(0);
-  }
-}
 
-.weather-icon {
-  display: inline-block;
-  font-size: 2rem;
-  transition: transform 0.3s ease;
-}
+  .weather-icon.animate {
+    animation: bounceFade 0.6s ease;
+  }
 
-.weather-icon.animate {
-  animation: bounceFade 0.6s ease;
-}
-  </style>
+  @keyframes bounceFade {
+    0% { opacity: 0; transform: scale(0.5) translateY(-20px); }
+    50% { opacity: 1; transform: scale(1.2) translateY(5px); }
+    100% { transform: scale(1) translateY(0); }
+  }
+</style>
 <script defer>
   document.addEventListener("DOMContentLoaded", () => {
     const searchBtn = document.getElementById("search-btn");
     const cityInput = document.getElementById("city-input");
     const weatherData = document.getElementById("weather-data");
     const icon = document.getElementById("weather-icon");
+
+    icon.addEventListener("animationend", () => {
+      icon.classList.remove("animate");
+    });
 
     searchBtn.addEventListener("click", async () => {
       const city = cityInput.value.trim();
@@ -162,7 +50,6 @@
       try {
         const res = await fetch(`https://wttr.in/${city}?format=%C+%t`);
         const text = await res.text();
-
         const lowercaseText = text.toLowerCase();
 
         let emoji = "🌤️";
@@ -201,13 +88,10 @@
         }
 
         icon.textContent = emoji;
-        weatherData.innerHTML = `<p><strong>${city}</strong>: ${text}</p>`;
+        icon.classList.add("animate");
 
-        // Cambiar fondo dinámicamente
+        weatherData.innerHTML = `<p><strong>${city}</strong>: ${text}</p>`;
         document.body.style.backgroundImage = bgUrl;
-        document.body.style.backgroundSize = "cover";
-        document.body.style.backgroundPosition = "center";
-        document.body.style.backgroundRepeat = "no-repeat";
       } catch (err) {
         weatherData.innerHTML = "Error al obtener el clima.";
         icon.textContent = "❌";
