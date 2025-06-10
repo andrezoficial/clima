@@ -6,32 +6,44 @@ document.addEventListener("DOMContentLoaded", () => {
   const weatherData = document.getElementById("weather-data");
   const weatherIcon = document.getElementById("weather-icon");
 
-  // Fondo por clima - URLs imágenes
   const fondosClima = {
-    "clear": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1350&q=80",
-    "cloud": "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=1350&q=80",
-    "rain": "https://images.unsplash.com/photo-1527766833261-b09c3163a791?auto=format&fit=crop&w=1350&q=80",
-    "snow": "https://images.unsplash.com/photo-1602524813607-b174fc3b7922?auto=format&fit=crop&w=1350&q=80",
-    "default": "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1350&q=80"
+    clear: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1350&q=80",
+    cloud: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=1350&q=80",
+    rain: "https://images.unsplash.com/photo-1527766833261-b09c3163a791?auto=format&fit=crop&w=1350&q=80",
+    snow: "https://images.unsplash.com/photo-1602524813607-b174fc3b7922?auto=format&fit=crop&w=1350&q=80",
+    default: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1350&q=80",
   };
 
-  // Función para cambiar fondo según clima
   function updateBackground(climaDescripcion) {
+    console.log("Descripción recibida:", climaDescripcion);
     if (!climaDescripcion) {
       document.body.style.backgroundImage = `url(${fondosClima.default})`;
       return;
     }
 
     const desc = climaDescripcion.toLowerCase();
-
     let fondoUrl = fondosClima.default;
-    if (desc.includes("sol") || desc.includes("clear")) {
+
+    if (desc.includes("cielo claro") || desc.includes("clear") || desc.includes("soleado")) {
       fondoUrl = fondosClima.clear;
-    } else if (desc.includes("nubl") || desc.includes("cloud")) {
+    } else if (
+      desc.includes("nublado") ||
+      desc.includes("muy nuboso") ||
+      desc.includes("cloud") ||
+      desc.includes("nubl")
+    ) {
       fondoUrl = fondosClima.cloud;
-    } else if (desc.includes("lluvia") || desc.includes("rain")) {
+    } else if (
+      desc.includes("lluvia") ||
+      desc.includes("lluvioso") ||
+      desc.includes("rain")
+    ) {
       fondoUrl = fondosClima.rain;
-    } else if (desc.includes("nieve") || desc.includes("snow")) {
+    } else if (
+      desc.includes("nieve") ||
+      desc.includes("nev") ||
+      desc.includes("snow")
+    ) {
       fondoUrl = fondosClima.snow;
     }
 
@@ -41,7 +53,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.style.transition = "background-image 0.8s ease-in-out";
   }
 
-  // --- Aquí agregamos la detección automática de ubicación ---
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       async (position) => {
@@ -70,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
           `;
 
           weatherIcon.textContent = getWeatherIcon(data.clima);
-          updateBackground(data.clima); // Aquí cambio el fondo
+          updateBackground(data.clima);
 
         } catch (error) {
           weatherData.innerHTML = `<p class='error'>⚠️ Error: ${error.message}</p>`;
@@ -85,17 +96,14 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("Geolocalización no soportada por este navegador");
   }
 
-  // 🔎 Permite usar Enter para buscar
   cityInput.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
       searchBtn.click();
     }
   });
 
-  // 🔄 Evento click para buscar clima
   searchBtn.addEventListener("click", async () => {
     const city = cityInput.value.trim();
-
     if (!city) {
       weatherData.innerHTML = "<p class='error'>🔍 Por favor, ingresa una ciudad</p>";
       return;
@@ -110,7 +118,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const data = await response.json();
       console.log("Datos de la API:", data);
 
-      // 🧊 Actualiza contenido
       weatherData.innerHTML = `
         <div class="weather-card">
           <h2>${data.ciudad || "Ciudad no disponible"}</h2>
@@ -124,14 +131,12 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
       `;
 
-      // ✨ Aplica animación
       weatherData.classList.remove("card-pop");
-      void weatherData.offsetWidth; // Fuerza reflow
+      void weatherData.offsetWidth;
       weatherData.classList.add("card-pop");
 
-      // ☀️ Ícono dinámico
       weatherIcon.textContent = getWeatherIcon(data.clima);
-      updateBackground(data.clima); // Aquí también cambio el fondo
+      updateBackground(data.clima);
 
     } catch (error) {
       weatherData.innerHTML = `
@@ -142,11 +147,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // 🔁 Función para íconos
   function getWeatherIcon(climaDescripcion) {
     if (!climaDescripcion) return "🌈";
     const desc = climaDescripcion.toLowerCase();
-    if (desc.includes("sol") || desc.includes("clear")) return "☀️";
+    if (desc.includes("sol") || desc.includes("cielo claro") || desc.includes("clear")) return "☀️";
     if (desc.includes("nubl") || desc.includes("cloud")) return "☁️";
     if (desc.includes("lluvia") || desc.includes("rain")) return "🌧️";
     if (desc.includes("nieve") || desc.includes("snow")) return "❄️";
