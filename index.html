@@ -4,41 +4,51 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Clima Actual</title>
-  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/1163/1163661.png" type="image/png">
-  <link rel="stylesheet" href="css/weather.css">
-  <script src="js/weather.js" defer></script>
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/1163/1163661.png" type="image/png" />
   <style>
-    body {
+    /* Reset básico */
+    body, html {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-attachment: fixed;
-      color: #fff;
+      padding: 0;
+      height: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #e0f7fa;
       display: flex;
       flex-direction: column;
       min-height: 100vh;
-      transition: background-image 1s ease-in-out;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transition: background-image 0.8s ease-in-out;
     }
 
     .weather-widget {
-      background-color: rgba(0, 0, 0, 0.75);
-      padding: 2rem;
+      background-color: rgba(0, 0, 0, 0.6);
       border-radius: 1rem;
-      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-      max-width: 500px;
+      padding: 2rem;
+      max-width: 450px;
       margin: 3rem auto;
+      box-shadow: 0 0 20px #0ff;
+      text-align: center;
     }
 
     .weather-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .weather-header h3 {
+      margin: 0;
+      font-weight: 700;
+      font-size: 1.8rem;
+      color: #67e8f9;
+      text-shadow: 0 0 5px #0ff;
     }
 
     .weather-icon {
-      font-size: 2rem;
+      font-size: 2.5rem;
     }
 
     .weather-search {
@@ -46,52 +56,79 @@
     }
 
     .weather-search input {
-      padding: 0.5rem;
+      padding: 0.6rem 1rem;
       width: 70%;
       border: none;
       border-radius: 5px;
+      font-size: 1rem;
     }
 
     .weather-search button {
-      padding: 0.5rem 1rem;
-      margin-left: 0.5rem;
+      padding: 0.6rem 1.2rem;
+      margin-left: 0.6rem;
       background-color: #06b6d4;
       border: none;
       border-radius: 5px;
       color: black;
-      font-weight: bold;
+      font-weight: 700;
+      font-size: 1rem;
       cursor: pointer;
+      transition: background-color 0.3s ease;
     }
 
     .weather-search button:hover {
       background-color: #22d3ee;
     }
 
+    /* Tarjeta de clima */
     .weather-card {
       background: rgba(0, 0, 0, 0.6);
       border-radius: 1rem;
-      padding: 1rem;
+      padding: 1.5rem 2rem;
       box-shadow: 0 0 15px #0ff;
-      animation: card-pop 0.5s ease forwards;
+      max-width: 400px;
+      margin: 1rem auto 0;
+      color: #e0f7fa;
+      transition: transform 0.3s ease;
     }
 
-    @keyframes card-pop {
-      0% {
-        transform: scale(0.95);
-        opacity: 0;
-      }
-      100% {
-        transform: scale(1);
-        opacity: 1;
-      }
+    .weather-card:hover {
+      transform: scale(1.05);
     }
 
-    .card-pop {
-      animation: card-pop 0.5s ease forwards;
+    .weather-main {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1.3rem;
+      margin: 0.5rem 0 1rem 0;
     }
 
-    .shadow-cyan-glow {
-      box-shadow: 0 0 10px 2px #0ff;
+    .weather-main .temp {
+      font-weight: 700;
+    }
+
+    .weather-main .desc {
+      font-style: italic;
+      color: #81d4fa;
+      text-transform: capitalize;
+    }
+
+    .weather-details p {
+      margin: 0.3rem 0;
+      font-size: 1rem;
+    }
+
+    /* Mensajes */
+    .loading, .error {
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-top: 1rem;
+      color: #67e8f9;
+    }
+
+    .error {
+      color: #f87171;
     }
 
     footer {
@@ -108,6 +145,45 @@
       margin: 0 0.75rem;
       filter: invert(1);
     }
+
+    /* Animación para la tarjeta */
+    .card-pop {
+      animation: popIn 0.5s ease forwards;
+    }
+
+    @keyframes popIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.85);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 500px) {
+      .weather-widget {
+        margin: 1.5rem 1rem;
+        padding: 1.5rem;
+      }
+      .weather-search input {
+        width: 60%;
+        font-size: 0.9rem;
+      }
+      .weather-search button {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+      }
+      .weather-main {
+        flex-direction: column;
+        gap: 0.3rem;
+      }
+      .weather-main span {
+        font-size: 1.1rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -118,7 +194,7 @@
       <div class="weather-icon" id="weather-icon">🌤️</div>
     </div>
     <div class="weather-search">
-      <input type="text" id="city-input" placeholder="Ej: Madrid" />
+      <input type="text" id="city-input" placeholder="Ej: Madrid" autocomplete="off" />
       <button id="search-btn">Buscar</button>
     </div>
     <div class="weather-data" id="weather-data">
@@ -175,9 +251,9 @@
           const data = await response.json();
           console.log("Datos de la API:", data);
 
-          // Actualiza contenido con animación
+          // Actualiza contenido
           weatherData.innerHTML = `
-            <div class="weather-card">
+            <div class="weather-card card-pop">
               <h2>${data.ciudad || "Ciudad no disponible"}</h2>
               <div class="weather-main">
                 <span class="temp">🌡️ ${data.temperatura}°C</span>
@@ -189,14 +265,10 @@
             </div>
           `;
 
-          weatherData.classList.remove("card-pop"); // Quita clase para reiniciar animación
-          void weatherData.offsetWidth; // Forzar reflow
-          weatherData.classList.add("card-pop"); // Agrega clase animación
-
-          // Cambia el ícono dinámicamente
+          // Ícono dinámico
           weatherIcon.textContent = getWeatherIcon(data.clima);
 
-          // Cambia el fondo según clima
+          // Cambia el fondo según el clima
           setBackgroundByWeather(data.clima);
 
         } catch (error) {
@@ -208,7 +280,7 @@
         }
       });
 
-      // Función para íconos
+      // Función para íconos dinámicos según descripción clima
       function getWeatherIcon(climaDescripcion) {
         if (!climaDescripcion) return "🌈";
         const desc = climaDescripcion.toLowerCase();
@@ -219,22 +291,28 @@
         return "🌤️";
       }
 
-      // Función para cambiar fondo según clima con imágenes de internet
+      // Cambia fondo según clima con imágenes en línea
       function setBackgroundByWeather(climaDescripcion) {
-        const desc = (climaDescripcion || "").toLowerCase();
-
-        if (desc.includes("sol") || desc.includes("clear")) {
-          document.body.style.backgroundImage = "url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1470&q=80')";
-        } else if (desc.includes("nubl") || desc.includes("cloud")) {
-          document.body.style.backgroundImage = "url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1470&q=80')";
-        } else if (desc.includes("lluvia") || desc.includes("rain")) {
-          document.body.style.backgroundImage = "url('https://images.unsplash.com/photo-1527766833261-b09c3163a791?auto=format&fit=crop&w=1470&q=80')";
-        } else if (desc.includes("nieve") || desc.includes("snow")) {
-          document.body.style.backgroundImage = "url('https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=1470&q=80')";
-        } else {
-          // Fondo por defecto
-          document.body.style.backgroundImage = "url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?auto=format&fit=crop&w=1470&q=80')";
+        if (!climaDescripcion) {
+          document.body.style.backgroundImage = "";
+          return;
         }
+        const desc = climaDescripcion.toLowerCase();
+
+        let url = "";
+        if (desc.includes("sol") || desc.includes("clear")) {
+          url = "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1470&q=80"; // cielo despejado
+        } else if (desc.includes("nubl") || desc.includes("cloud")) {
+          url = "https://images.unsplash.com/photo-1499346030926-9a72daac6c63?auto=format&fit=crop&w=1470&q=80"; // nublado
+        } else if (desc.includes("lluvia") || desc.includes("rain")) {
+          url = "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1470&q=80"; // lluvia
+        } else if (desc.includes("nieve") || desc.includes("snow")) {
+          url = "https://images.unsplash.com/photo-1604382354936-e87fbd0f488d?auto=format&fit=crop&w=1470&q=80"; // nieve
+        } else {
+          url = "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1470&q=80"; // clima templado / parcial
+        }
+
+        document.body.style.backgroundImage = `url(${url})`;
       }
     });
   </script>
