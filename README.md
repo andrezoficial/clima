@@ -1,89 +1,64 @@
-Clima Actual 🌤️
+# Clima Actual 🌤️
 
-Clima Actual es una aplicación web sencilla que muestra el clima actual de cualquier ciudad o de tu ubicación automática, con un diseño moderno y dinámico que cambia el fondo según el clima.
+Una aplicación web simple para consultar el clima actual de cualquier ciudad o tu ubicación actual, con fondo dinámico que cambia según el clima.
 
+---
 
-Demo en Vivo
-https://andrezoficial.github.io/clima/
+## 🚀 Demo en línea
 
-Características
-Búsqueda de clima por ciudad con resultados detallados: temperatura, descripción y humedad.
+Puedes probar la app en: [https://andrezoficial.github.io/clima/](https://andrezoficial.github.io/clima/)
 
+---
 
-Detección automática de ubicación para mostrar el clima local.
+## 📋 Descripción
 
+Este proyecto obtiene el clima actual usando una API externa y muestra la temperatura, humedad y descripción del clima. Además, cambia el fondo de la página para que coincida con el clima actual (soleado, nublado, lluvia, nieve).
 
-Cambia dinámicamente la imagen de fondo según el estado del clima (sol, nublado, lluvia, nieve).
+Está pensado para ser fácil de usar y visualmente atractivo con animaciones y un diseño responsivo.
 
+---
 
-Íconos y animaciones para mejorar la experiencia visual.
+## 🛠️ Tecnologías usadas
 
+- HTML5
+- CSS3 (flexbox, animaciones)
+- JavaScript (fetch, geolocalización, DOM)
+- API personalizada para clima
 
-Interfaz responsiva y accesible desde dispositivos móviles y escritorio.
+---
 
+## ⚙️ Cómo usar localmente
 
-Tecnologías
-HTML5, CSS3 (Flexbox, animaciones)
+1. Clona este repositorio:
 
-JavaScript (Fetch API, DOM manipulation)
+   ```bash
+   git clone https://github.com/andrezoficial/clima.git
+Abre el archivo index.html en tu navegador (doble clic o servidor local).
 
-API externa de clima propia: clima-api-17w0.onrender.com
+Ingresa el nombre de una ciudad y presiona Buscar o usa tu ubicación para ver el clima actual.
 
-Instalación y uso
-Clona el repositorio:
-
+📁 Estructura del proyecto
 bash
 Copiar
 Editar
-git clone https://github.com/andrezoficial/clima.git
-Abre el archivo index.html en tu navegador o usa un servidor local:
-
-bash
-Copiar
-Editar
-# Usando Python 3
-python -m http.server
-Disfruta consultando el clima por ciudad o usa tu ubicación.
-
-Estructura del proyecto
-bash
-Copiar
-Editar
-/clima
+clima/
 │
-├── index.html          # Archivo principal HTML
+├── index.html         # Archivo principal HTML
 ├── js/
-│   └── weather.js      # Lógica JavaScript para obtener y mostrar el clima
-└── README.md           # Este archivo
-API
-La aplicación consume la API propia alojada en:
+│   └── weather.js     # Lógica JavaScript
+├── README.md          # Este archivo
+└── ...
+🔧 Personalización
+Las imágenes de fondo se pueden cambiar en weather.js, dentro del objeto fondosClima.
 
-bash
-Copiar
-Editar
-https://clima-api-17w0.onrender.com/clima
-Parámetros:
+Puedes mejorar el diseño en index.html y estilos CSS.
 
-ciudad: nombre de la ciudad para buscar clima.
-
-lat y lon: coordenadas para obtener el clima de ubicación actual.
-
-Ejemplo:
-
-bash
-Copiar
-Editar
-https://clima-api-17w0.onrender.com/clima?ciudad=Madrid
-https://clima-api-17w0.onrender.com/clima?lat=40.4168&lon=-3.7038
-Capturas
-![Captura de pantalla 2025-06-09 215742](https://github.com/user-attachments/assets/2e3d80db-45b5-4ec8-8da0-4d76cd6c816d)
-![image](https://github.com/user-attachments/assets/13835fed-8ebd-4d3f-a374-c4bf24d4bcd0)
-
-
-Autor
+👨‍💻 Autor
 Andrés Suárez Moreno
-GitHub | LinkedIn
 
-Licencia
-Este proyecto está bajo la licencia MIT — consulta el archivo LICENSE para más detalles.
+GitHub: https://github.com/andrezoficial
+
+LinkedIn: https://www.linkedin.com/in/andres1997rez
+
+WhatsApp: https://wa.me/573226183938
 
