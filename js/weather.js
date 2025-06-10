@@ -61,3 +61,33 @@ document.addEventListener("DOMContentLoaded", () => {
     return "🌤️";
   }
 });
+document.addEventListener("DOMContentLoaded", () => {
+  const input = document.getElementById("city-input");
+  const button = document.getElementById("search-btn");
+
+  input.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      button.click();
+    }
+  });
+
+  button.addEventListener("click", () => {
+    const city = input.value.trim();
+    if (!city) return;
+
+    fetch(`https://clima-api-17w0.onrender.com/clima?ciudad=${encodeURIComponent(city)}`)
+      .then((res) => res.json())
+      .then((data) => {
+        const { ciudad, temperatura, humedad, clima } = data;
+        document.getElementById("weather-data").innerHTML = `
+          <h4>${ciudad}</h4>
+          <p>🌡️ Temperatura: ${temperatura}°C</p>
+          <p>💧 Humedad: ${humedad}%</p>
+          <p>☁️ Cielo: ${clima}</p>
+        `;
+      })
+      .catch(() => {
+        document.getElementById("weather-data").innerHTML = `<p>Error al obtener datos</p>`;
+      });
+  });
+});
