@@ -1,51 +1,82 @@
-🌤️ Clima
-Clima es una aplicación web sencilla que permite a los usuarios obtener información meteorológica actualizada de cualquier ciudad del mundo. Utiliza la API de OpenWeatherMap para mostrar datos como temperatura, humedad y condiciones climáticas actuales.
+Clima Actual 🌤️
+Clima Actual es una aplicación web sencilla que muestra el clima actual de cualquier ciudad o de tu ubicación automática, con un diseño moderno y dinámico que cambia el fondo según el clima.
 
-🚀 Características
-Búsqueda de clima por nombre de ciudad.
+Demo en Vivo
+https://andrezoficial.github.io/clima/
 
-Visualización de temperatura, humedad y descripción del clima.
+Características
+Búsqueda de clima por ciudad con resultados detallados: temperatura, descripción y humedad.
 
-Interfaz intuitiva y responsive.
+Detección automática de ubicación para mostrar el clima local.
 
-🖼️ Captura de pantalla
+Cambia dinámicamente la imagen de fondo según el estado del clima (sol, nublado, lluvia, nieve).
 
-🛠️ Tecnologías utilizadas
-HTML5
+Íconos y animaciones para mejorar la experiencia visual.
 
-CSS3
+Interfaz responsiva y accesible desde dispositivos móviles y escritorio.
 
-JavaScript (ES6)
+Tecnologías
+HTML5, CSS3 (Flexbox, animaciones)
 
-OpenWeatherMap API
+JavaScript (Fetch API, DOM manipulation)
 
-📦 Instalación
-Clona este repositorio:
+API externa de clima propia: clima-api-17w0.onrender.com
+
+Instalación y uso
+Clona el repositorio:
 
 bash
 Copiar
 Editar
 git clone https://github.com/andrezoficial/clima.git
-Navega al directorio del proyecto:
+Abre el archivo index.html en tu navegador o usa un servidor local:
 
 bash
 Copiar
 Editar
-cd clima
-Abre el archivo index.html en tu navegador preferido.
+# Usando Python 3
+python -m http.server
+Disfruta consultando el clima por ciudad o usa tu ubicación.
 
-🔧 Configuración
-Para que la aplicación funcione correctamente, necesitas una clave de API de OpenWeatherMap:
-
-Regístrate en OpenWeatherMap y obtén tu clave de API.
-
-En el archivo js/script.js, reemplaza 'TU_API_KEY' con tu clave de API:
-
-javascript
+Estructura del proyecto
+bash
 Copiar
 Editar
-const apiKey = 'TU_API_KEY';
+/clima
+│
+├── index.html          # Archivo principal HTML
+├── js/
+│   └── weather.js      # Lógica JavaScript para obtener y mostrar el clima
+└── README.md           # Este archivo
+API
+La aplicación consume la API propia alojada en:
 
-📄 Licencia
-Este proyecto está bajo la Licencia MIT. Consulta el archivo LICENSE para más detalles.
+bash
+Copiar
+Editar
+https://clima-api-17w0.onrender.com/clima
+Parámetros:
+
+ciudad: nombre de la ciudad para buscar clima.
+
+lat y lon: coordenadas para obtener el clima de ubicación actual.
+
+Ejemplo:
+
+bash
+Copiar
+Editar
+https://clima-api-17w0.onrender.com/clima?ciudad=Madrid
+https://clima-api-17w0.onrender.com/clima?lat=40.4168&lon=-3.7038
+Capturas
+![Captura de pantalla 2025-06-09 215742](https://github.com/user-attachments/assets/2e3d80db-45b5-4ec8-8da0-4d76cd6c816d)
+![image](https://github.com/user-attachments/assets/13835fed-8ebd-4d3f-a374-c4bf24d4bcd0)
+
+
+Autor
+Andrés Suárez Moreno
+GitHub | LinkedIn
+
+Licencia
+Este proyecto está bajo la licencia MIT — consulta el archivo LICENSE para más detalles.
 
