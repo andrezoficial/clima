@@ -123,34 +123,50 @@
       }
     }
   </style>
-  <script defer>
-    document.addEventListener("DOMContentLoaded", () => {
-      const searchBtn = document.getElementById("search-btn");
-      const cityInput = document.getElementById("city-input");
-      const weatherData = document.getElementById("weather-data");
-      const icon = document.getElementById("weather-icon");
+<script defer>
+  document.addEventListener("DOMContentLoaded", () => {
+    const searchBtn = document.getElementById("search-btn");
+    const cityInput = document.getElementById("city-input");
+    const weatherData = document.getElementById("weather-data");
+    const icon = document.getElementById("weather-icon");
 
-      searchBtn.addEventListener("click", async () => {
-        const city = cityInput.value.trim();
-        if (!city) return;
+    searchBtn.addEventListener("click", async () => {
+      const city = cityInput.value.trim();
+      if (!city) return;
 
-        weatherData.innerHTML = "Cargando...";
+      weatherData.innerHTML = "Cargando...";
 
-        try {
-          const res = await fetch(`https://wttr.in/${city}?format=%C+%t`);
-          const text = await res.text();
+      try {
+        const res = await fetch(`https://wttr.in/${city}?format=%C+%t`);
+        const text = await res.text();
 
-          icon.textContent = text.includes("rain") ? "🌧️" :
-                             text.includes("sun") ? "☀️" :
-                             text.includes("cloud") ? "☁️" : "🌤️";
+        const lowercaseText = text.toLowerCase();
 
-          weatherData.innerHTML = `<p><strong>${city}</strong>: ${text}</p>`;
-        } catch (err) {
-          weatherData.innerHTML = "Error al obtener el clima.";
-        }
-      });
+        let emoji = "🌤️"; // default
+
+        if (lowercaseText.includes("sunny")) emoji = "☀️";
+        else if (lowercaseText.includes("clear")) emoji = "🌕";
+        else if (lowercaseText.includes("cloudy")) emoji = "☁️";
+        else if (lowercaseText.includes("partly cloudy")) emoji = "⛅";
+        else if (lowercaseText.includes("overcast")) emoji = "🌥️";
+        else if (lowercaseText.includes("rain")) emoji = "🌧️";
+        else if (lowercaseText.includes("thunder")) emoji = "⛈️";
+        else if (lowercaseText.includes("storm")) emoji = "🌩️";
+        else if (lowercaseText.includes("snow")) emoji = "❄️";
+        else if (lowercaseText.includes("fog")) emoji = "🌫️";
+        else if (lowercaseText.includes("wind")) emoji = "💨";
+        else if (lowercaseText.includes("mist")) emoji = "🌁";
+
+        icon.textContent = emoji;
+        weatherData.innerHTML = `<p><strong>${city}</strong>: ${text}</p>`;
+      } catch (err) {
+        weatherData.innerHTML = "Error al obtener el clima.";
+        icon.textContent = "❌";
+      }
     });
-  </script>
+  });
+</script>
+
 </head>
 <body>
 
