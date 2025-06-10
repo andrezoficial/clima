@@ -142,23 +142,49 @@
 
         const lowercaseText = text.toLowerCase();
 
-        let emoji = "🌤️"; // default
+        let emoji = "🌤️";
+        let bgUrl = "url('https://images.unsplash.com/photo-1501973801540-537f08ccae7b?auto=format&fit=crop&w=1400&q=80')";
 
-        if (lowercaseText.includes("sunny")) emoji = "☀️";
-        else if (lowercaseText.includes("clear")) emoji = "🌕";
-        else if (lowercaseText.includes("cloudy")) emoji = "☁️";
-        else if (lowercaseText.includes("partly cloudy")) emoji = "⛅";
-        else if (lowercaseText.includes("overcast")) emoji = "🌥️";
-        else if (lowercaseText.includes("rain")) emoji = "🌧️";
-        else if (lowercaseText.includes("thunder")) emoji = "⛈️";
-        else if (lowercaseText.includes("storm")) emoji = "🌩️";
-        else if (lowercaseText.includes("snow")) emoji = "❄️";
-        else if (lowercaseText.includes("fog")) emoji = "🌫️";
-        else if (lowercaseText.includes("wind")) emoji = "💨";
-        else if (lowercaseText.includes("mist")) emoji = "🌁";
+        if (lowercaseText.includes("sunny")) {
+          emoji = "☀️";
+          bgUrl = "url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1400&q=80')";
+        } else if (lowercaseText.includes("clear")) {
+          emoji = "🌕";
+          bgUrl = "url('https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1400&q=80')";
+        } else if (lowercaseText.includes("cloudy")) {
+          emoji = "☁️";
+          bgUrl = "url('https://images.unsplash.com/photo-1525164286255-1f2b5b1e3b6b?auto=format&fit=crop&w=1400&q=80')";
+        } else if (lowercaseText.includes("partly cloudy")) {
+          emoji = "⛅";
+          bgUrl = "url('https://images.unsplash.com/photo-1501621965065-c6e1cf6b53e2?auto=format&fit=crop&w=1400&q=80')";
+        } else if (lowercaseText.includes("overcast")) {
+          emoji = "🌥️";
+          bgUrl = "url('https://images.unsplash.com/photo-1474031317822-f51f48735ddd?auto=format&fit=crop&w=1400&q=80')";
+        } else if (lowercaseText.includes("rain")) {
+          emoji = "🌧️";
+          bgUrl = "url('https://images.unsplash.com/photo-1561484930-998b6a7f5ca0?auto=format&fit=crop&w=1400&q=80')";
+        } else if (lowercaseText.includes("thunder") || lowercaseText.includes("storm")) {
+          emoji = "⛈️";
+          bgUrl = "url('https://images.unsplash.com/photo-1500674425229-f692875b0ab7?auto=format&fit=crop&w=1400&q=80')";
+        } else if (lowercaseText.includes("snow")) {
+          emoji = "❄️";
+          bgUrl = "url('https://images.unsplash.com/photo-1608889176798-2c4bc49c524b?auto=format&fit=crop&w=1400&q=80')";
+        } else if (lowercaseText.includes("fog") || lowercaseText.includes("mist")) {
+          emoji = "🌫️";
+          bgUrl = "url('https://images.unsplash.com/photo-1470115636492-6d2b56f2a7e1?auto=format&fit=crop&w=1400&q=80')";
+        } else if (lowercaseText.includes("wind")) {
+          emoji = "💨";
+          bgUrl = "url('https://images.unsplash.com/photo-1525097487452-6278ff080c31?auto=format&fit=crop&w=1400&q=80')";
+        }
 
         icon.textContent = emoji;
         weatherData.innerHTML = `<p><strong>${city}</strong>: ${text}</p>`;
+
+        // Cambiar fondo dinámicamente
+        document.body.style.backgroundImage = bgUrl;
+        document.body.style.backgroundSize = "cover";
+        document.body.style.backgroundPosition = "center";
+        document.body.style.backgroundRepeat = "no-repeat";
       } catch (err) {
         weatherData.innerHTML = "Error al obtener el clima.";
         icon.textContent = "❌";
