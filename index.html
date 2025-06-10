@@ -5,13 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Clima Actual</title>
   <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/1163/1163661.png" type="image/png">
-  <link rel="stylesheet" href="css/weather.css">
-  <script src="js/weather.js" defer></script>
   <style>
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: url('../fondo.jpg') no-repeat center center fixed;
+      background: url('https://images.unsplash.com/photo-1501973801540-537f08ccae7b?auto=format&fit=crop&w=1400&q=80') no-repeat center center fixed;
       background-size: cover;
       color: #fff;
       display: flex;
@@ -40,24 +38,28 @@
 
     .weather-search {
       margin: 1rem 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
     }
 
     .weather-search input {
       padding: 0.5rem;
-      width: 70%;
+      flex: 1 1 60%;
+      min-width: 0;
       border: none;
       border-radius: 5px;
     }
 
     .weather-search button {
       padding: 0.5rem 1rem;
-      margin-left: 0.5rem;
       background-color: #06b6d4;
       border: none;
       border-radius: 5px;
       color: black;
       font-weight: bold;
       cursor: pointer;
+      flex: 1 1 35%;
     }
 
     .weather-search button:hover {
@@ -82,7 +84,73 @@
       margin: 0 0.75rem;
       filter: invert(1);
     }
+
+    .footer-icons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    @media (max-width: 600px) {
+      .weather-widget {
+        margin: 1rem;
+        padding: 1rem;
+        max-width: 90%;
+      }
+
+      .weather-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .weather-icon {
+        margin-top: 1rem;
+        font-size: 1.5rem;
+      }
+
+      .weather-search {
+        flex-direction: column;
+      }
+
+      .weather-search button {
+        width: 100%;
+      }
+
+      .weather-search input {
+        width: 100%;
+      }
+    }
   </style>
+  <script defer>
+    document.addEventListener("DOMContentLoaded", () => {
+      const searchBtn = document.getElementById("search-btn");
+      const cityInput = document.getElementById("city-input");
+      const weatherData = document.getElementById("weather-data");
+      const icon = document.getElementById("weather-icon");
+
+      searchBtn.addEventListener("click", async () => {
+        const city = cityInput.value.trim();
+        if (!city) return;
+
+        weatherData.innerHTML = "Cargando...";
+
+        try {
+          const res = await fetch(`https://wttr.in/${city}?format=%C+%t`);
+          const text = await res.text();
+
+          icon.textContent = text.includes("rain") ? "🌧️" :
+                             text.includes("sun") ? "☀️" :
+                             text.includes("cloud") ? "☁️" : "🌤️";
+
+          weatherData.innerHTML = `<p><strong>${city}</strong>: ${text}</p>`;
+        } catch (err) {
+          weatherData.innerHTML = "Error al obtener el clima.";
+        }
+      });
+    });
+  </script>
 </head>
 <body>
 
@@ -101,15 +169,15 @@
   </div>
 
   <footer class="shadow-cyan-glow">
-    <p class="mb-2 font-semibold">© 2025 Andrés Suárez Moreno</p>
-    <div class="flex justify-center gap-6">
-      <a href="https://github.com/andrezoficial" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+    <p>© 2025 Andrés Suárez Moreno</p>
+    <div class="footer-icons">
+      <a href="https://github.com/andrezoficial" target="_blank" aria-label="GitHub">
         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" />
       </a>
-      <a href="https://www.linkedin.com/in/andres1997rez" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+      <a href="https://www.linkedin.com/in/andres1997rez" target="_blank" aria-label="LinkedIn">
         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" alt="LinkedIn" />
       </a>
-      <a href="https://wa.me/573226183938" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+      <a href="https://wa.me/573226183938" target="_blank" aria-label="WhatsApp">
         <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg" alt="WhatsApp" />
       </a>
     </div>
