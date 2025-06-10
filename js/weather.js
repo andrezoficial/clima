@@ -5,11 +5,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const cityInput = document.getElementById("city-input");
   const weatherData = document.getElementById("weather-data");
   const weatherIcon = document.getElementById("weather-icon");
-  document.addEventListener("DOMContentLoaded", () => {
-  const searchBtn = document.getElementById("search-btn");
-  const cityInput = document.getElementById("city-input");
-  const weatherData = document.getElementById("weather-data");
-  const weatherIcon = document.getElementById("weather-icon");
 
   // --- Aquí agregamos la detección automática de ubicación ---
   if (navigator.geolocation) {
@@ -40,9 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
           `;
 
           weatherIcon.textContent = getWeatherIcon(data.clima);
-
-          // Si tienes función para cambiar fondo según clima, la llamas aquí
-          // updateBackground(data.clima);
 
         } catch (error) {
           weatherData.innerHTML = `<p class='error'>⚠️ Error: ${error.message}</p>`;
