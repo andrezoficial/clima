@@ -7,99 +7,140 @@
   <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/1163/1163661.png" type="image/png">
   <style>
     body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: url('https://images.unsplash.com/photo-1501973801540-537f08ccae7b?auto=format&fit=crop&w=1400&q=80') no-repeat center center fixed;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    transition: background-image 1s ease-in-out;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('https://images.unsplash.com/photo-1501973801540-537f08ccae7b?auto=format&fit=crop&w=1400&q=80') no-repeat center center fixed;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transition: background-image 1s ease-in-out;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
 
-  .weather-icon.animate {
-    animation: bounceFade 0.6s ease;
-  }
+    .weather-icon.animate {
+      animation: bounceFade 0.6s ease;
+    }
 
-  @keyframes bounceFade {
-    0% { opacity: 0; transform: scale(0.5) translateY(-20px); }
-    50% { opacity: 1; transform: scale(1.2) translateY(5px); }
-    100% { transform: scale(1) translateY(0); }
-  }
-</style>
-<script defer>
-  document.addEventListener("DOMContentLoaded", () => {
-    const searchBtn = document.getElementById("search-btn");
-    const cityInput = document.getElementById("city-input");
-    const weatherData = document.getElementById("weather-data");
-    const icon = document.getElementById("weather-icon");
+    @keyframes bounceFade {
+      0% { opacity: 0; transform: scale(0.5) translateY(-20px); }
+      50% { opacity: 1; transform: scale(1.2) translateY(5px); }
+      100% { transform: scale(1) translateY(0); }
+    }
 
-    icon.addEventListener("animationend", () => {
-      icon.classList.remove("animate");
-    });
+    /* Mejoras de accesibilidad y estilo */
+    .weather-search input,
+    .weather-search button {
+      font-size: 1rem;
+      padding: 0.5rem;
+      border-radius: 5px;
+      border: none;
+    }
 
-    searchBtn.addEventListener("click", async () => {
-      const city = cityInput.value.trim();
-      if (!city) return;
+    .weather-search button {
+      background-color: #06b6d4;
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-left: 0.5rem;
+    }
 
-      weatherData.innerHTML = "Cargando...";
+    .weather-search button:hover,
+    .weather-search button:focus {
+      background-color: #22d3ee;
+      outline: 2px solid #0ff;
+      outline-offset: 2px;
+    }
 
-      try {
-        const res = await fetch(`https://wttr.in/${city}?format=%C+%t`);
-        const text = await res.text();
-        const lowercaseText = text.toLowerCase();
+    /* Ajuste para evitar que el botón quede muy cerca del input */
+    .weather-search {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      margin: 1rem 0;
+    }
+  </style>
+  <script defer>
+    document.addEventListener("DOMContentLoaded", () => {
+      const searchBtn = document.getElementById("search-btn");
+      const cityInput = document.getElementById("city-input");
+      const weatherData = document.getElementById("weather-data");
+      const icon = document.getElementById("weather-icon");
 
-        let emoji = "🌤️";
-        let bgUrl = "url('https://images.unsplash.com/photo-1501973801540-537f08ccae7b?auto=format&fit=crop&w=1400&q=80')";
+      icon.addEventListener("animationend", () => {
+        icon.classList.remove("animate");
+      });
 
-        if (lowercaseText.includes("sunny")) {
-          emoji = "☀️";
-          bgUrl = "url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1400&q=80')";
-        } else if (lowercaseText.includes("clear")) {
-          emoji = "🌕";
-          bgUrl = "url('https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1400&q=80')";
-        } else if (lowercaseText.includes("cloudy")) {
-          emoji = "☁️";
-          bgUrl = "url('https://images.unsplash.com/photo-1525164286255-1f2b5b1e3b6b?auto=format&fit=crop&w=1400&q=80')";
-        } else if (lowercaseText.includes("partly cloudy")) {
-          emoji = "⛅";
-          bgUrl = "url('https://images.unsplash.com/photo-1501621965065-c6e1cf6b53e2?auto=format&fit=crop&w=1400&q=80')";
-        } else if (lowercaseText.includes("overcast")) {
-          emoji = "🌥️";
-          bgUrl = "url('https://images.unsplash.com/photo-1474031317822-f51f48735ddd?auto=format&fit=crop&w=1400&q=80')";
-        } else if (lowercaseText.includes("rain")) {
-          emoji = "🌧️";
-          bgUrl = "url('https://images.unsplash.com/photo-1561484930-998b6a7f5ca0?auto=format&fit=crop&w=1400&q=80')";
-        } else if (lowercaseText.includes("thunder") || lowercaseText.includes("storm")) {
-          emoji = "⛈️";
-          bgUrl = "url('https://images.unsplash.com/photo-1500674425229-f692875b0ab7?auto=format&fit=crop&w=1400&q=80')";
-        } else if (lowercaseText.includes("snow")) {
-          emoji = "❄️";
-          bgUrl = "url('https://images.unsplash.com/photo-1608889176798-2c4bc49c524b?auto=format&fit=crop&w=1400&q=80')";
-        } else if (lowercaseText.includes("fog") || lowercaseText.includes("mist")) {
-          emoji = "🌫️";
-          bgUrl = "url('https://images.unsplash.com/photo-1470115636492-6d2b56f2a7e1?auto=format&fit=crop&w=1400&q=80')";
-        } else if (lowercaseText.includes("wind")) {
-          emoji = "💨";
-          bgUrl = "url('https://images.unsplash.com/photo-1525097487452-6278ff080c31?auto=format&fit=crop&w=1400&q=80')";
+      async function fetchWeather() {
+        const city = cityInput.value.trim();
+        if (!city) return;
+
+        weatherData.innerHTML = "Cargando...";
+
+        try {
+          const res = await fetch(`https://wttr.in/${city}?format=%C+%t`);
+          const text = await res.text();
+          const lowercaseText = text.toLowerCase();
+
+          let emoji = "🌤️";
+          let bgUrl = "url('https://images.unsplash.com/photo-1501973801540-537f08ccae7b?auto=format&fit=crop&w=1400&q=80')";
+
+          if (lowercaseText.includes("sunny")) {
+            emoji = "☀️";
+            bgUrl = "url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1400&q=80')";
+          } else if (lowercaseText.includes("clear")) {
+            emoji = "🌕";
+            bgUrl = "url('https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1400&q=80')";
+          } else if (lowercaseText.includes("cloudy")) {
+            emoji = "☁️";
+            bgUrl = "url('https://images.unsplash.com/photo-1525164286255-1f2b5b1e3b6b?auto=format&fit=crop&w=1400&q=80')";
+          } else if (lowercaseText.includes("partly cloudy")) {
+            emoji = "⛅";
+            bgUrl = "url('https://images.unsplash.com/photo-1501621965065-c6e1cf6b53e2?auto=format&fit=crop&w=1400&q=80')";
+          } else if (lowercaseText.includes("overcast")) {
+            emoji = "🌥️";
+            bgUrl = "url('https://images.unsplash.com/photo-1474031317822-f51f48735ddd?auto=format&fit=crop&w=1400&q=80')";
+          } else if (lowercaseText.includes("rain")) {
+            emoji = "🌧️";
+            bgUrl = "url('https://images.unsplash.com/photo-1561484930-998b6a7f5ca0?auto=format&fit=crop&w=1400&q=80')";
+          } else if (lowercaseText.includes("thunder") || lowercaseText.includes("storm")) {
+            emoji = "⛈️";
+            bgUrl = "url('https://images.unsplash.com/photo-1500674425229-f692875b0ab7?auto=format&fit=crop&w=1400&q=80')";
+          } else if (lowercaseText.includes("snow")) {
+            emoji = "❄️";
+            bgUrl = "url('https://images.unsplash.com/photo-1608889176798-2c4bc49c524b?auto=format&fit=crop&w=1400&q=80')";
+          } else if (lowercaseText.includes("fog") || lowercaseText.includes("mist")) {
+            emoji = "🌫️";
+            bgUrl = "url('https://images.unsplash.com/photo-1470115636492-6d2b56f2a7e1?auto=format&fit=crop&w=1400&q=80')";
+          } else if (lowercaseText.includes("wind")) {
+            emoji = "💨";
+            bgUrl = "url('https://images.unsplash.com/photo-1525097487452-6278ff080c31?auto=format&fit=crop&w=1400&q=80')";
+          }
+
+          icon.textContent = emoji;
+          icon.classList.add("animate");
+
+          weatherData.innerHTML = `<p><strong>${city}</strong>: ${text}</p>`;
+          document.body.style.backgroundImage = bgUrl;
+        } catch (err) {
+          weatherData.innerHTML = "Error al obtener el clima.";
+          icon.textContent = "❌";
         }
-
-        icon.textContent = emoji;
-        icon.classList.add("animate");
-
-        weatherData.innerHTML = `<p><strong>${city}</strong>: ${text}</p>`;
-        document.body.style.backgroundImage = bgUrl;
-      } catch (err) {
-        weatherData.innerHTML = "Error al obtener el clima.";
-        icon.textContent = "❌";
       }
-    });
-  });
-</script>
 
+      searchBtn.addEventListener("click", fetchWeather);
+
+      cityInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          fetchWeather();
+        }
+      });
+    });
+  </script>
 </head>
 <body>
 
@@ -109,17 +150,17 @@
       <div class="weather-icon" id="weather-icon">🌤️</div>
     </div>
     <div class="weather-search">
-      <input type="text" id="city-input" placeholder="Ej: Madrid">
-      <button id="search-btn">Buscar</button>
+      <input type="text" id="city-input" placeholder="Ej: Madrid" aria-label="Ciudad para buscar clima">
+      <button id="search-btn" aria-label="Buscar clima">Buscar</button>
     </div>
     <div class="weather-data" id="weather-data">
       <p>Ingresa una ciudad</p>
     </div>
   </div>
 
-  <footer class="shadow-cyan-glow">
+  <footer class="shadow-cyan-glow" style="background-color: rgba(0,0,0,0.8); color: #67e8f9; text-align: center; padding: 1.5rem 0; margin-top: auto;">
     <p>© 2025 Andrés Suárez Moreno</p>
-    <div class="footer-icons">
+    <div class="footer-icons" style="display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; margin-top: 0.5rem;">
       <a href="https://github.com/andrezoficial" target="_blank" aria-label="GitHub">
         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" />
       </a>
