@@ -1,5 +1,7 @@
 Clima Actual 🌤️
+
 Clima Actual es una aplicación web sencilla que muestra el clima actual de cualquier ciudad o de tu ubicación automática, con un diseño moderno y dinámico que cambia el fondo según el clima.
+
 
 Demo en Vivo
 https://andrezoficial.github.io/clima/
@@ -7,13 +9,18 @@ https://andrezoficial.github.io/clima/
 Características
 Búsqueda de clima por ciudad con resultados detallados: temperatura, descripción y humedad.
 
+
 Detección automática de ubicación para mostrar el clima local.
+
 
 Cambia dinámicamente la imagen de fondo según el estado del clima (sol, nublado, lluvia, nieve).
 
+
 Íconos y animaciones para mejorar la experiencia visual.
 
+
 Interfaz responsiva y accesible desde dispositivos móviles y escritorio.
+
 
 Tecnologías
 HTML5, CSS3 (Flexbox, animaciones)
