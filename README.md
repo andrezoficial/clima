@@ -33,14 +33,19 @@ Está pensado para ser fácil de usar y visualmente atractivo con animaciones y 
 
    ```bash
    git clone https://github.com/andrezoficial/clima.git
-Abre el archivo index.html en tu navegador (doble clic o servidor local).
-
-Ingresa el nombre de una ciudad y presiona Buscar o usa tu ubicación para ver el clima actual.
-
-📁 Estructura del proyecto
+2. Abre el archivo index.html en tu navegador (doble clic o servidor local).
+   
+3. Ingresa el nombre de una ciudad y presiona Buscar o usa tu ubicación para ver el clima actual.
+---
+---
+##📁 Estructura del proyecto
+---
 bash
+---
 Copiar
+---
 Editar
+---
 clima/
 │
 ├── index.html         # Archivo principal HTML
@@ -48,12 +53,13 @@ clima/
 │   └── weather.js     # Lógica JavaScript
 ├── README.md          # Este archivo
 └── ...
-🔧 Personalización
+---
+##🔧 Personalización
 Las imágenes de fondo se pueden cambiar en weather.js, dentro del objeto fondosClima.
 
 Puedes mejorar el diseño en index.html y estilos CSS.
 
-👨‍💻 Autor
+##👨‍💻 Autor
 Andrés Suárez Moreno
 
 GitHub: https://github.com/andrezoficial
